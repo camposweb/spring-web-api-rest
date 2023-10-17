@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserModel, UUID>{
 	UserModel findByUsername(String username);
+	public void deleteById(UUID id);
 }
