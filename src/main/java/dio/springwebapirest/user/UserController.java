@@ -1,6 +1,7 @@
 package dio.springwebapirest.user;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@PostMapping()
-	public ResponseEntity create(@RequestBody UserModel userModel) {
+	public ResponseEntity<UserModel> create(@RequestBody UserModel userModel) {
 		var user = this.userRepository.save(userModel);
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
@@ -41,9 +42,14 @@ public class UserController {
 	}
 	
 	@GetMapping("/{username}")
-	public UserModel getByName(@PathVariable("username") String username) {
+	public ResponseEntity getByName(@PathVariable String username) {
 		var user = this.userRepository.findByUsername(username);
-		return user;
+		
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuário não encontrado");
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 
 	@DeleteMapping("/{id}")

@@ -1,14 +1,18 @@
 package dio.springwebapirest.controller;
 
+
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 public class WelcomeController {
 	
-	@GetMapping
+	@GetMapping("/")
 	public String welcome() {
 		return "Welcome to My Spring Boot Web API";
 	}
+
+	
 }
